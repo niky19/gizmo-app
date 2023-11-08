@@ -51,22 +51,19 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.destinations.RegisterScreenFormDestination
+import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
 import com.example.gizmoapp.MainActivity
-import com.example.gizmo_app.ui.theme.GizmoappTheme
+import com.example.gizmoapp.UserViewModel
 import com.example.gizmoapp.model.LoginRequest
-import com.example.gizmoapp.viewmodel.UserViewModel
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.example.gizmoapp.ui.theme.GizmoAppTheme
 
 
-@Destination
+
 @Composable
-fun LoginForm(
-    navigator: DestinationsNavigator, userViewModel: UserViewModel
+fun LoginForm(navController: NavController, viewModel: ViewModel
 ) {
-    val userViewModel: UserViewModel = hiltViewModel()
+    val userViewModel: UserViewModel = viewModel()
     Surface {
         var loginRequest by remember { mutableStateOf(LoginRequest()) }
         val context = LocalContext.current
@@ -109,7 +106,7 @@ fun LoginForm(
             Spacer(Modifier.height(16.dp))
             Text("¿No estás registrado?")
             ClickableText(text = AnnotatedString("Crear cuenta"), onClick = {
-                navigator.navigate(RegisterScreenFormDestination)
+
             })
         }
     }
@@ -227,7 +224,7 @@ fun PasswordField(
 @Preview(showBackground = true, device = "id:Nexus One", showSystemUi = true)
 @Composable
 fun GreetingPreview() {
-    GizmoappTheme {
+    GizmoAppTheme {
         //LoginForm()
     }
 }

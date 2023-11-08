@@ -14,12 +14,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.gizmoapp.ui.theme.GizmoappTheme
+import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
+import com.example.gizmoapp.UserViewModel
+import com.example.gizmoapp.repository.UserRepository
+import com.example.gizmoapp.retrofit.ApiService
+import com.example.gizmoapp.ui.theme.GizmoAppTheme
 
 
 @Composable
-fun HomeScreenForm() {
-    // userViewModel: UserViewModel = hiltViewModel()
+fun HomeScreenForm(navController: NavController, viewModel: ViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -47,7 +51,7 @@ fun HomeScreenForm() {
 @Preview(showBackground = true, device = "id:Nexus One", showSystemUi = true)
 @Composable
 fun HomeScreenPreview() {
-    GizmoappTheme {
+    GizmoAppTheme {
         // HomeScreenForm()
     }
 }

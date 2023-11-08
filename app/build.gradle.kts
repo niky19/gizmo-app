@@ -69,6 +69,8 @@ dependencies {
 
     // Navegación con Compose
     implementation("androidx.navigation:navigation-compose:2.7.5")
+    // LiveData
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0-beta01")
     // Iconos
