@@ -1,4 +1,5 @@
 package com.example.gizmoapp
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +13,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class UserViewModel (private val userRepository: UserRepository) : ViewModel() {
+class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     private val _users = MutableLiveData<List<User>?>()
     val users: MutableLiveData<List<User>?> = _users
 
@@ -21,7 +22,6 @@ class UserViewModel (private val userRepository: UserRepository) : ViewModel() {
 
     private val _registerStatus = MutableLiveData<Boolean>()
     val registerStatus: LiveData<Boolean> = _registerStatus
-
 
     // Devuelve la lista de usuarios
     fun getUsers() {

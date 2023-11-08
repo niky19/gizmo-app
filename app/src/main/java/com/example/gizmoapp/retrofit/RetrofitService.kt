@@ -2,6 +2,7 @@ package com.example.gizmoapp.retrofit
 
 import com.example.gizmoapp.model.RegisterRequest
 import com.example.gizmoapp.model.User
+import com.example.gizmoapp.model.question.Question
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -16,6 +17,8 @@ interface ApiService {
     suspend fun getUsers(@Url url : String): Response<List<User>>
     @POST("register")
     suspend fun registerUser(@Body request: RegisterRequest): Response<User>
+    @GET()
+    suspend fun getQuestions(@Url url : String): Response<List<Question>>
 
     companion object {
         val BASE_URL = "http://localhost:1337/api/users/"

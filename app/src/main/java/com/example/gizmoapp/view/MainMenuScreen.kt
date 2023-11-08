@@ -13,22 +13,33 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.gizmoapp.UserViewModel
+import com.example.gizmoapp.viewmodel.ZenGameViewModel
 
 @Composable
-fun MainMenuForm() {
+fun MainMenuScreen(navController: NavController, viewModel: ZenGameViewModel) {
+    MainMenuForm(navController = navController, viewModel = viewModel)
+}
+
+@Composable
+fun MainMenuForm(navController: NavController, viewModel: ZenGameViewModel) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(text = "GIZMO", style = MaterialTheme.typography.labelLarge)
             Spacer(modifier = Modifier.height(32.dp))
-            Button(onClick = { /* Aquí va tu función para manejar el clic del botón de jugar */ }) {
+            Button(onClick = { navController.navigate("login") }) {
                 Text(text = "Jugar")
             }
         }
     }
 }
 
+
+/**
 @Preview
 @Composable
 fun MainMenuFormPreview() {
-    MainMenuForm()
+MainMenuForm()
 }
+ **/

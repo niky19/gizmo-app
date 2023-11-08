@@ -2,31 +2,23 @@
 
 package com.example.gizmoapp.view
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
-import android.widget.Toast
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Key
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -53,19 +45,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import com.example.gizmoapp.MainActivity
 import com.example.gizmoapp.UserViewModel
-import com.example.gizmoapp.model.LoginRequest
-import com.example.gizmoapp.ui.theme.GizmoAppTheme
-
-
+import com.example.gizmoapp.model.RegisterRequest
 
 @Composable
-fun LoginForm(navController: NavController, viewModel: ViewModel
+fun RegisterScreen(navController: NavController, viewModel: UserViewModel) {
+    RegisterScreenForm(navController = navController, viewModel = viewModel)
+}
+
+@Composable
+fun RegisterScreenForm(
+    navController: NavController, viewModel: ViewModel
 ) {
-    val userViewModel: UserViewModel = viewModel()
+    val userViewModel: UserViewModel = viewModel as UserViewModel
     Surface {
-        var loginRequest by remember { mutableStateOf(LoginRequest()) }
+
+        var registerRequest by remember { mutableStateOf(RegisterRequest()) }
         val context = LocalContext.current
         Column(
             verticalArrangement = Arrangement.Center,
@@ -75,88 +70,71 @@ fun LoginForm(navController: NavController, viewModel: ViewModel
                 .padding(horizontal = 32.dp)
         ) {
             UsernameField(
-                value = loginRequest.username,
-                onChange = { data -> loginRequest = loginRequest.copy(username = data) },
-                modifier = Modifier.fillMaxWidth()
+                value = registerRequest.username,
+                onChange = { data -> registerRequest = registerRequest.copy(username = data) },
+                modifier = Modifier.fillMaxWidth(),
+                label = "Username"
             )
             Spacer(Modifier.height(16.dp))
-            PasswordField(
-                value = loginRequest.password,
-                onChange = { data -> loginRequest = loginRequest.copy(password = data) },
-                modifier = Modifier.fillMaxWidth()
+            EmailField(
+                value = registerRequest.email,
+                onChange = { data -> registerRequest = registerRequest.copy(email = data) },
+                modifier = Modifier.fillMaxWidth(),
+                label = "Email"
+            )
+            Spacer(Modifier.height(16.dp))
+            NewPasswordField(
+                value = registerRequest.password,
+                onChange = { data -> registerRequest = registerRequest.copy(password = data) },
+                modifier = Modifier.fillMaxWidth(),
+                label = "Password",
+            )
+            Spacer(Modifier.height(16.dp))
+            RepeatPasswordField(
+                value = registerRequest.repeatPassword,
+                onChange = { data ->
+                    registerRequest = registerRequest.copy(repeatPassword = data)
+                },
+                modifier = Modifier.fillMaxWidth(),
+                label = "Repeat Password",
             )
 
-            Spacer(Modifier.height(12.dp))
-            LabeledCheckbox(
-                label = "Remember Me", onCheckChanged = {
-                    loginRequest = loginRequest.copy(remember = !loginRequest.remember)
-                }, isChecked = loginRequest.remember
-            )
             Spacer(Modifier.height(22.dp))
             Button(
                 onClick = {
-                    userViewModel.loginUser(loginRequest.username, loginRequest.password)
+                    userViewModel.registerUser(
+                        registerRequest.username, registerRequest.email, registerRequest.password
+                    )
                 },
-                enabled = loginRequest.isNotEmpty(),
+                enabled = registerRequest.isNotEmpty(),
                 shape = RoundedCornerShape(4.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Login")
+                Text("Register")
             }
             Spacer(Modifier.height(16.dp))
-            Text("¿No estás registrado?")
-            ClickableText(text = AnnotatedString("Crear cuenta"), onClick = {
-
+            Text("¿Estás registrado?")
+            ClickableText(text = AnnotatedString("Iniciar sesión"), onClick = {
+                navController.navigate("login")
             })
         }
     }
 }
 
 
-fun checkCredentials(creds: Credentials, context: Context) {
-    if (creds.isNotEmpty() && creds.username == "admin") {
-        context.startActivity(Intent(context, MainActivity::class.java))
-        (context as Activity).finish()
-    } else {
-        Toast.makeText(context, "Wrong Credentials", Toast.LENGTH_SHORT).show()
-    }
-}
-
-data class Credentials(
-    var username: String = "", var pass: String = "", var remember: Boolean = false
-) {
-    fun isNotEmpty(): Boolean {
-        return username.isNotEmpty() && pass.isNotEmpty()
-    }
-}
-
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LabeledCheckbox(label: String, onCheckChanged: () -> Unit, isChecked: Boolean) {
-    Row(
-        Modifier
-            .clickable(onClick = onCheckChanged)
-            .padding(4.dp)
-    ) {
-        Checkbox(checked = isChecked, onCheckedChange = null)
-        Spacer(Modifier.size(6.dp))
-        Text(label)
-    }
-}
-
-@Composable
-fun UsernameField(
+fun EmailField(
     value: String,
     onChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    label: String = "Username",
+    label: String = "Email",
     placeholder: String = ""
 ) {
-
     val focusManager = LocalFocusManager.current
     val leadingIcon = @Composable {
         Icon(
-            Icons.Default.Person, contentDescription = "", tint = MaterialTheme.colorScheme.primary
+            Icons.Default.Email, contentDescription = "", tint = MaterialTheme.colorScheme.primary
         )
     }
     TextField(
@@ -170,13 +148,11 @@ fun UsernameField(
         label = { Text(label) },
         singleLine = true,
         visualTransformation = VisualTransformation.None
-
-
     )
 }
 
 @Composable
-fun PasswordField(
+fun NewPasswordField(
     value: String,
     onChange: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -201,7 +177,6 @@ fun PasswordField(
         }
     }
 
-
     TextField(
         value = value,
         onValueChange = onChange,
@@ -215,16 +190,51 @@ fun PasswordField(
         label = { Text(label) },
         singleLine = true,
         visualTransformation = if (isPassVisible) VisualTransformation.None else PasswordVisualTransformation()
-
-
     )
 }
 
-
-@Preview(showBackground = true, device = "id:Nexus One", showSystemUi = true)
 @Composable
-fun GreetingPreview() {
-    GizmoAppTheme {
-        //LoginForm()
+fun RepeatPasswordField(
+    value: String,
+    onChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    label: String = "Repeat Password",
+    placeholder: String = ""
+) {
+    var isPassVisible by remember { mutableStateOf(false) }
+    val leadingIcon = @Composable {
+        Icon(
+            Icons.Default.Key, contentDescription = "", tint = MaterialTheme.colorScheme.primary
+        )
     }
+    val trailingIcon = @Composable {
+        IconButton(onClick = { isPassVisible = !isPassVisible }) {
+            Icon(
+                if (isPassVisible) Icons.Default.VisibilityOff else Icons.Default.Visibility,
+                contentDescription = "",
+                tint = MaterialTheme.colorScheme.primary
+            )
+        }
+    }
+    TextField(
+        value = value,
+        onValueChange = onChange,
+        modifier = modifier,
+        leadingIcon = leadingIcon,
+        trailingIcon = trailingIcon,
+        keyboardOptions = KeyboardOptions(
+            imeAction = ImeAction.Done, keyboardType = KeyboardType.Password
+        ),
+        keyboardActions = KeyboardActions(onDone = { /* Handle the action on "Done" */ }),
+        placeholder = { Text(placeholder) },
+        label = { Text(label) },
+        singleLine = true,
+        visualTransformation = if (isPassVisible) VisualTransformation.None else PasswordVisualTransformation()
+    )
+}
+
+@Preview
+@Composable
+fun RegisterFormPreview() {
+    //RegisterForm()
 }
