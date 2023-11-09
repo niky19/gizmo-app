@@ -10,6 +10,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,13 +22,7 @@ import com.example.gizmoapp.ui.theme.GizmoAppTheme
 
 
 @Composable
-fun HomeScreen(navController: NavController, viewModel: UserViewModel) {
-   // val sharedUserViewModel = remember { userViewModel }
-    HomeScreenForm(navController = navController, viewModel = viewModel)
-}
-
-@Composable
-fun HomeScreenForm(navController: NavController, viewModel: ViewModel) {
+fun HomeScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()

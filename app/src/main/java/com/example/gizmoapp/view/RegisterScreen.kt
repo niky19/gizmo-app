@@ -44,22 +44,20 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.gizmoapp.viewmodel.UserViewModel
 import com.example.gizmoapp.model.RegisterRequest
 
 @Composable
-fun RegisterScreen(navController: NavController, viewModel: UserViewModel) {
-    RegisterScreenForm(navController = navController, viewModel = viewModel)
-}
+fun RegisterScreen(navController: NavController,userViewModel: UserViewModel) {
+    userViewModel.registerResult.observeForever {
+        if (it != null) {
+            navController.navigate("login")
+        }
+    }
 
-@Composable
-fun RegisterScreenForm(
-    navController: NavController, viewModel: ViewModel
-) {
-    val userViewModel: UserViewModel = viewModel as UserViewModel
     Surface {
-
         var registerRequest by remember { mutableStateOf(RegisterRequest()) }
         val context = LocalContext.current
         Column(
@@ -151,6 +149,7 @@ fun EmailField(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewPasswordField(
     value: String,
@@ -193,6 +192,7 @@ fun NewPasswordField(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RepeatPasswordField(
     value: String,

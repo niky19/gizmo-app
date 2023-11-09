@@ -1,6 +1,5 @@
 package com.example.gizmoapp.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,17 +15,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class UserViewModel(application: Application, private val userRepository: UserRepository) :
-    AndroidViewModel(application) {
+class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     private val _users = MutableLiveData<List<User>?>()
     val users: MutableLiveData<List<User>?> = _users
 
-    // Usamos un enum class para representar los posibles estados del registro o del login
     enum class State {
         LOADING, SUCCESS, ERROR
     }
 
-    // Usamos un par de MutableLiveData para comunicar el resultado y el mensaje de error del registro
     private val _registerResult = MutableLiveData<User?>()
     val registerResult: LiveData<User?> = _registerResult
 
@@ -43,6 +39,7 @@ class UserViewModel(application: Application, private val userRepository: UserRe
             try {
                 val response =
                     userRepository.registerUser(RegisterRequest(username, email, password))
+                println(response.body())
                 if (response.isSuccessful) {
                     _registerResult.value = response.body()
                     _registerState.value = State.SUCCESS
@@ -70,7 +67,11 @@ class UserViewModel(application: Application, private val userRepository: UserRe
     fun loginUser(username: String, password: String) {
         viewModelScope.launch {
             _loginState.value = State.LOADING
+            println("novia te amo mucho")
+            println("username: $username")
+
             val user = userRepository.findUser(LoginRequest(username, password))
+            println("user: $user")
             if (user != null) {
                 _loginResult.value = user
                 _loginState.value = State.SUCCESS

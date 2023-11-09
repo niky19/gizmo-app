@@ -59,16 +59,14 @@ import com.example.gizmoapp.model.LoginRequest
 import com.example.gizmoapp.ui.theme.GizmoAppTheme
 
 @Composable
-fun LoginScreen(navController: NavController, viewModel: ViewModel) {
+fun LoginScreen(navController: NavController, viewModel: UserViewModel) {
     val userViewModel: UserViewModel = viewModel as UserViewModel
-    LoginForm(navController, userViewModel)
-}
 
-@Composable
-fun LoginForm(
-    navController: NavController, viewModel: ViewModel
-) {
-    val userViewModel: UserViewModel = viewModel as UserViewModel
+    userViewModel.loginResult.observeForever {
+        if (it != null) {
+            navController.navigate("main_menu")
+        }
+    }
     Surface {
         var loginRequest by remember { mutableStateOf(LoginRequest()) }
         val context = LocalContext.current
@@ -101,10 +99,12 @@ fun LoginForm(
             Button(
                 onClick = {
                     userViewModel.loginUser(loginRequest.username, loginRequest.password)
+                    navController.navigate("login")
                 },
                 enabled = loginRequest.isNotEmpty(),
                 shape = RoundedCornerShape(4.dp),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+
             ) {
                 Text("Login")
             }
@@ -149,6 +149,7 @@ fun LabeledCheckbox(label: String, onCheckChanged: () -> Unit, isChecked: Boolea
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UsernameField(
     value: String,
@@ -180,6 +181,7 @@ fun UsernameField(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PasswordField(
     value: String,

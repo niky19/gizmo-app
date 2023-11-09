@@ -21,7 +21,7 @@ interface ApiService {
     suspend fun getQuestions(@Url url : String): Response<List<Question>>
 
     companion object {
-        val BASE_URL = "http://localhost:1337/api/users/"
+        val BASE_URL = "http://10.0.2.2:1337/api/auth/local/"
 
         fun create(): ApiService {
             val client = OkHttpClient.Builder().build()

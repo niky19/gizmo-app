@@ -17,11 +17,6 @@ import com.example.gizmoapp.viewmodel.ZenGameViewModel
 
 @Composable
 fun MainMenuScreen(navController: NavController, viewModel: ZenGameViewModel) {
-    MainMenuForm(navController = navController, viewModel = viewModel)
-}
-
-@Composable
-fun MainMenuForm(navController: NavController, viewModel: ZenGameViewModel) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(text = "GIZMO", style = MaterialTheme.typography.labelLarge)

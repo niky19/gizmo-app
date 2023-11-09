@@ -3,7 +3,6 @@ package com.example.gizmoapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.lifecycle.ViewModel
@@ -14,6 +13,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import com.example.gizmoapp.repository.UserRepository
+import com.example.gizmoapp.repository.ZenGameRepository
+import com.example.gizmoapp.retrofit.ApiService
 import com.example.gizmoapp.view.HomeScreen
 import com.example.gizmoapp.ui.theme.GizmoAppTheme
 import com.example.gizmoapp.view.LoginScreen
@@ -23,11 +25,16 @@ import com.example.gizmoapp.viewmodel.UserViewModel
 import com.example.gizmoapp.viewmodel.ZenGameViewModel
 
 class MainActivity : ComponentActivity() {
-    // Usamos el método by viewModels() para obtener el UserViewModel sin necesidad de crear un UserViewModelFactory
-    private val userViewModel: UserViewModel by viewModels()
-
+        private lateinit var userViewModel: UserViewModel
+        private lateinit var zenGameViewModel : ZenGameViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val apiService  = ApiService.create()
+        val userRepository = UserRepository(apiService)
+        val zenGameRepository = ZenGameRepository(apiService)
+
+        userViewModel = UserViewModel(userRepository)
+        zenGameViewModel = ZenGameViewModel(zenGameRepository)
 
         setContent {
             GizmoAppTheme {
@@ -39,19 +46,15 @@ class MainActivity : ComponentActivity() {
                         route = "auth"
                     ) {
                         composable("home") {
-                            val userViewModel = it.sharedViewModel<UserViewModel>(navController)
-                            HomeScreen(navController, userViewModel)
+                            HomeScreen(navController)
                         }
                         composable("login") {
-                            val userViewModel = it.sharedViewModel<UserViewModel>(navController)
                             LoginScreen(navController, userViewModel)
                         }
                         composable("register") {
-                            val userViewModel = it.sharedViewModel<UserViewModel>(navController)
                             RegisterScreen(navController, userViewModel)
                         }
                         composable("forgot_password") {
-                            val userViewModel = it.sharedViewModel<UserViewModel>(navController)
                             //TODO: Implementar recuperacion de contraseña
                         }
                     }
@@ -61,8 +64,7 @@ class MainActivity : ComponentActivity() {
                         route = "zengamemode"
                     ) {
                         composable("main_menu") {
-                            val viewModel = it.sharedViewModel<ZenGameViewModel>(navController)
-                            MainMenuScreen(navController, viewModel)
+                            MainMenuScreen(navController, zenGameViewModel)
                         }
                     }
                 }
@@ -79,5 +81,3 @@ inline fun <reified T : ViewModel> NavBackStackEntry.sharedViewModel(navControll
     }
     return viewModel(parentEntry)
 }
-
-
