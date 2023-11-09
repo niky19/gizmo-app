@@ -54,7 +54,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.gizmoapp.MainActivity
-import com.example.gizmoapp.UserViewModel
+import com.example.gizmoapp.viewmodel.UserViewModel
 import com.example.gizmoapp.model.LoginRequest
 import com.example.gizmoapp.ui.theme.GizmoAppTheme
 

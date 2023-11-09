@@ -45,7 +45,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import com.example.gizmoapp.UserViewModel
+import com.example.gizmoapp.viewmodel.UserViewModel
 import com.example.gizmoapp.model.RegisterRequest
 
 @Composable
