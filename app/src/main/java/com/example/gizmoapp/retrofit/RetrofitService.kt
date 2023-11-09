@@ -1,5 +1,6 @@
 package com.example.gizmoapp.retrofit
 
+import com.example.example.QuestionResponse
 import com.example.gizmoapp.model.RegisterRequest
 import com.example.gizmoapp.model.User
 import com.example.gizmoapp.model.question.Question
@@ -18,7 +19,7 @@ interface ApiService {
     @POST("register")
     suspend fun registerUser(@Body request: RegisterRequest): Response<User>
     @GET()
-    suspend fun getQuestions(@Url url : String): Response<List<Question>>
+    suspend fun getQuestions(@Url url : String): Response<QuestionResponse>
 
     companion object {
         val BASE_URL = "http://10.0.2.2:1337/api/auth/local/"

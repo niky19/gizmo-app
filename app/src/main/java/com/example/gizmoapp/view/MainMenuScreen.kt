@@ -17,11 +17,20 @@ import com.example.gizmoapp.viewmodel.ZenGameViewModel
 
 @Composable
 fun MainMenuScreen(navController: NavController, viewModel: ZenGameViewModel) {
+
+    viewModel._questions.observeForever {
+        if (it != null) {
+            println(viewModel._questions.value)
+            navController.navigate("game")
+        }
+    }
+
+
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(text = "GIZMO", style = MaterialTheme.typography.labelLarge)
             Spacer(modifier = Modifier.height(32.dp))
-            Button(onClick = { navController.navigate("login") }) {
+            Button(onClick = { viewModel.getQuestions() }) {
                 Text(text = "Jugar")
             }
         }

@@ -50,7 +50,7 @@ import com.example.gizmoapp.viewmodel.UserViewModel
 import com.example.gizmoapp.model.RegisterRequest
 
 @Composable
-fun RegisterScreen(navController: NavController,userViewModel: UserViewModel) {
+fun RegisterScreen(navController: NavController, userViewModel: UserViewModel) {
     userViewModel.registerResult.observeForever {
         if (it != null) {
             navController.navigate("login")

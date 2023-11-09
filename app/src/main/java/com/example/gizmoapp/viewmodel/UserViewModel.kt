@@ -39,7 +39,8 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
             try {
                 val response =
                     userRepository.registerUser(RegisterRequest(username, email, password))
-                println(response.body())
+                println("ola")
+                println(response)
                 if (response.isSuccessful) {
                     _registerResult.value = response.body()
                     _registerState.value = State.SUCCESS

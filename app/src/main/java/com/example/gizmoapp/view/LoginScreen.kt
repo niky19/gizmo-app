@@ -99,7 +99,6 @@ fun LoginScreen(navController: NavController, viewModel: UserViewModel) {
             Button(
                 onClick = {
                     userViewModel.loginUser(loginRequest.username, loginRequest.password)
-                    navController.navigate("login")
                 },
                 enabled = loginRequest.isNotEmpty(),
                 shape = RoundedCornerShape(4.dp),

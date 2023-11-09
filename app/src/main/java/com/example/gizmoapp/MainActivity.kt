@@ -21,6 +21,7 @@ import com.example.gizmoapp.ui.theme.GizmoAppTheme
 import com.example.gizmoapp.view.LoginScreen
 import com.example.gizmoapp.view.MainMenuScreen
 import com.example.gizmoapp.view.RegisterScreen
+import com.example.gizmoapp.view.ZenModeScreen
 import com.example.gizmoapp.viewmodel.UserViewModel
 import com.example.gizmoapp.viewmodel.ZenGameViewModel
 
@@ -66,6 +67,10 @@ class MainActivity : ComponentActivity() {
                         composable("main_menu") {
                             MainMenuScreen(navController, zenGameViewModel)
                         }
+                        composable("game") {
+                            ZenModeScreen(navController, zenGameViewModel)
+                        }
+
                     }
                 }
             }
