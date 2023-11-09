@@ -6,9 +6,9 @@ Gizmo is an educational mobile application designed to introduce kids to the wor
 
 It's a game with various modes that challenge children to solve problems to develop and apply logical and critical thinking, all while emphasizing creativity and entertainment. The application consists of 3 gameplay modes:
 
-1. **Adventure:** Learn the story and logic of programming through an interactive tale.
-2. **Training:** Practice your skills by solving problems one after another, without time limits or points.
-3. **Quick Play:** Solve problems against the clock with points and rewards.
+- **Adventure:** Learn the story and logic of programming through an interactive tale.
+- **Training:** Practice your skills by solving problems one after another, without time limits or points.
+- **Quick Play:** Solve problems against the clock with points and rewards.
 
 
 ## Key Features
@@ -30,11 +30,11 @@ It's a game with various modes that challenge children to solve problems to deve
 
 ## Technologies Used
 
-Gizmo is an application developed in **Kotlin** for Android devices and utilizes a **custom database** to store user progress and other relevant data.
+Gizmo is an application developed in **Kotlin** for Android devices and utilizes a **custom database and Rest API** to store user progress and other relevant data using **Amazon Web Service** 
 
 ## Contributions
 
-Contributions are currently off.
+Contributions are currently off. 
 
 ## Contact
 
