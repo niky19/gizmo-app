@@ -1,5 +1,6 @@
 package com.example.example
 
+import com.example.gizmoapp.model.question.api.Attributes
 import com.google.gson.annotations.SerializedName
 
 

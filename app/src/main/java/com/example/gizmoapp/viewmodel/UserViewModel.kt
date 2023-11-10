@@ -68,7 +68,7 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     fun loginUser(username: String, password: String) {
         viewModelScope.launch {
             _loginState.value = State.LOADING
-            println("novia te amo mucho")
+            println("wow! mira!")
             println("username: $username")
 
             val user = userRepository.findUser(LoginRequest(username, password))
