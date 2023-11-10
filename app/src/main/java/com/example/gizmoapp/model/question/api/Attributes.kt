@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class Attributes (
 
   @SerializedName("statement"   ) var statement   : String? = null,
-  @SerializedName("answer"      ) var answer      : String?    = null,
+  @SerializedName("answer"      ) var answer      : Int?    = null,
   @SerializedName("createdAt"   ) var createdAt   : String? = null,
   @SerializedName("updatedAt"   ) var updatedAt   : String? = null,
   @SerializedName("publishedAt" ) var publishedAt : String? = null,

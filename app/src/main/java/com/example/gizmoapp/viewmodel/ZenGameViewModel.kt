@@ -10,6 +10,10 @@ import kotlinx.coroutines.launch
 
 class ZenGameViewModel(private val zenGameRepository: ZenGameRepository) : ViewModel() {
     var _questions = MutableLiveData<List<Question>>()
+    var _score = 0
+    var _currentQuestion = MutableLiveData<Question>()
+    var questionIndex = 0
+
     fun getQuestions() {
         println("mi campeon favorito sin duda es lulu")
         viewModelScope.launch {
@@ -19,6 +23,7 @@ class ZenGameViewModel(private val zenGameRepository: ZenGameRepository) : ViewM
                 if (result?.data?.size != 0) {
                     println("miau ${mapQuestions(result!!)} miau")
                     _questions.value = mapQuestions(result)
+                    _currentQuestion.value = _questions.value?.get(0)
                 }
             } catch (e: Exception) {
                 println(e.message)

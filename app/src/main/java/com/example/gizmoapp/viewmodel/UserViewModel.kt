@@ -55,7 +55,7 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
         }
     }
 
-    // comunicar el resultado
+    //comunicar el resultado
     private val _loginResult = MutableLiveData<User?>()
     val loginResult: LiveData<User?> = _loginResult
 
