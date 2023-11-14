@@ -20,6 +20,7 @@ import com.example.gizmoapp.view.HomeScreen
 import com.example.gizmoapp.ui.theme.GizmoAppTheme
 import com.example.gizmoapp.view.LoginScreen
 import com.example.gizmoapp.view.MainMenuScreen
+import com.example.gizmoapp.view.ProfileScreen
 import com.example.gizmoapp.view.RegisterScreen
 import com.example.gizmoapp.view.ZenModeScoreScreeen
 import com.example.gizmoapp.view.ZenModeScreen
@@ -58,6 +59,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable("forgot_password") {
                             //TODO: Implementar recuperacion de contraseña
+                        }
+                        composable("profile"){
+                            ProfileScreen(navController, userViewModel)
                         }
                     }
                     //Navegacion entre pantallas relacionadas con el modo de juego Zen
