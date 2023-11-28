@@ -29,8 +29,7 @@ import com.example.gizmoapp.viewmodel.ZenGameViewModel
 
 @Composable
 fun ZenModeScreen(navController: NavController, viewModel: ZenGameViewModel) {
-
-
+    
     var statement by remember { mutableStateOf(viewModel._questions.value?.get(viewModel.questionIndex)?.statement) }
     var option1 by remember {
         mutableStateOf(

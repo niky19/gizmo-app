@@ -15,7 +15,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
+open class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
+
     private val _users = MutableLiveData<List<User>?>()
     val users: MutableLiveData<List<User>?> = _users
 
@@ -32,6 +33,9 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     private val _registerMessage = MutableLiveData<String>()
     val registerMessage: LiveData<String> = _registerMessage
 
+    private val _viewUserProfile = MutableLiveData<User?>()
+    val viewUserProfile: LiveData<User?> = _viewUserProfile
+
     //Registro de nuevo usuario
     fun registerUser(username: String, email: String, password: String) {
         viewModelScope.launch {
@@ -39,7 +43,7 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
             try {
                 val response =
                     userRepository.registerUser(RegisterRequest(username, email, password))
-                println("ola")
+               // println("ola")
                 println(response)
                 if (response.isSuccessful) {
                     _registerResult.value = response.body()
@@ -68,7 +72,7 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     fun loginUser(username: String, password: String) {
         viewModelScope.launch {
             _loginState.value = State.LOADING
-            println("wow! mira!")
+           // println("wow! mira!")
             println("username: $username")
 
             val user = userRepository.findUser(LoginRequest(username, password))

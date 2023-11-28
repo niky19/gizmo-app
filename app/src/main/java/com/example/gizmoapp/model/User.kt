@@ -7,4 +7,8 @@ data class User(
     val username: String,
     val password: String,
     val email: String,
+    val level: Int,
+    val achievements: List<Achievement>,
+    val problemsSolved : Int,
 )
+
