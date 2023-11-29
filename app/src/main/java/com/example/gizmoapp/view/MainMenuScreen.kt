@@ -41,23 +41,22 @@ fun MainMenuScreen(navController: NavController, viewModel: ZenGameViewModel) {
                 Text(text = "Jugar")
             }
         }
-            ExtendedFloatingActionButton(
+        ExtendedFloatingActionButton(
 
-                onClick = { navController.navigate("profile") }) {
+            onClick = { navController.navigate("profile") }) {
 
-            }
         }
     }
+}
 
+@Preview
+@Composable
+fun MainMenuScreenPreview() {
+    val navController = rememberNavController()
 
-    @Preview
-    @Composable
-    fun MainMenuScreenPreview() {
-        val navController = rememberNavController()
+    val apiInterface = ApiService.create()
 
-        val apiInterface = ApiService.create()
-
-        val zenGameRepository: ZenGameRepository = ZenGameRepository(apiInterface)
-        val viewModel = ZenGameViewModel(zenGameRepository)
-        MainMenuScreen(navController = navController, viewModel = viewModel)
-    }
+    val zenGameRepository: ZenGameRepository = ZenGameRepository(apiInterface)
+    val viewModel = ZenGameViewModel(zenGameRepository)
+    MainMenuScreen(navController = navController, viewModel = viewModel)
+}

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -44,6 +45,11 @@ fun HomeScreen(navController: NavController) {
             navController.navigate("register")
         }) {
             Text("Registrarse")
+        }
+        Button(
+
+            onClick = { navController.navigate("profile") }) {
+
         }
     }
 }

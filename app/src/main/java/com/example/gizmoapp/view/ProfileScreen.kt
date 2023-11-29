@@ -186,19 +186,19 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(42.dp),
-                    
+                    horizontalArrangement = Arrangement.SpaceEvenly
 
                 ) {
                     Button(onClick = {
                         animationScope.launch {
-                            state.animateScrollToPage(state.currentPage)
+                            state.animateScrollToPage(0)
                         }
                     }) {
                         Text(text = "achievements")
                     }
                     Button(onClick = {
                         animationScope.launch {
-                            state.animateScrollToPage(state.currentPage + 1)
+                            state.animateScrollToPage(1)
                         }
                     }) {
                         Text(text = "progess")
@@ -207,21 +207,38 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
                 HorizontalPager(
                     modifier = Modifier.weight(0.7f), state = state
                 ) { page ->
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2), modifier = Modifier.fillMaxSize()
-                    ) {
-                        items(10) {
-                            Box(
-                                modifier = Modifier
-                                    .padding(8.dp)
-                                    .size(100.dp)
-                                    .background(Color(0xFF2D2F33))
-                            )
+                    when (page) {
+                        0 -> {
+                            // First page
+                            LazyVerticalGrid(
+                                columns = GridCells.Fixed(2), modifier = Modifier.fillMaxSize()
+                            ) {
+                                items(10) { index ->
+                                    Column {
+                                        Box(
+                                            modifier = Modifier
+                                                .padding(8.dp)
+                                                .size(200.dp)
+                                                .background(Color(0xFF2D2F33))
+                                        )
+                                        Text(
+                                            text = "Description for item $index",
+                                            modifier = Modifier.align(Alignment.CenterHorizontally)
+                                        )
+                                    }
+                                }
+                            }
+                        }
+
+                        1 -> {
+                            // Second page
+                            // Add your content for the second page here
+                        }
+
+                        else -> {
+                            // Optional: Handle other pages if needed
                         }
                     }
-                    Text(
-                        text = "Page: $page", modifier = Modifier.fillMaxWidth()
-                    )
                 }
 
             }
