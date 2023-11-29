@@ -81,4 +81,6 @@ dependencies {
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.9.0") // Opcional, si estás utilizando RxJava
     // Coroutinas
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+    //HorizontalPager
+    implementation ("com.google.accompanist:accompanist-pager:0.20.0")
 }
